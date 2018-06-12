@@ -1,0 +1,416 @@
+<html>
+    <head>
+    <style>
+        
+            
+
+        body,li,div{
+            text-align: center;
+        }
+        #listInput,#listItem {
+            background: transparent;
+            font-family: cursive;
+            color:black;
+            height: 40px;
+            font-size: 15px;
+        }
+        #listInput {
+            height: 42px !important;
+            margin-right: 5px;
+            margin-top: 10px;
+            padding-left: 24px;
+            padding-right: 24px;
+            border:1px solid #dbdbdb;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            width: 26%;
+            margin-right: 20px; 
+        }
+        #listItem {
+            margin: 10px;
+            width: 25%;
+            border:1px solid #dbdbdb;
+            border-radius: 10px;
+            padding-top: 22px;
+            padding-bottom: 22px;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+       
+        #listAdder,#RemoveList,#EditList,#completedList {
+            background: transparent;
+            font-family: cursive;
+            color: black;
+            font-size: 14px;
+            border:1px solid #dbdbdb;
+            padding: 10px;
+
+        }
+        #ListAdder{
+            position: relative;
+            top: -2px;
+            padding-bottom: 30px;
+            height: 38px;
+            width: 7%;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+       #RemoveList,#EditList,#completedList  {
+            position: relative;
+            top: 10px;
+            margin: 6px;
+            margin-left: 5px;
+            border-radius:  50%;   
+            height: 50px;
+            width: 50px;
+           
+        }
+
+        #editIcon,#deleteIcon {
+
+            height: auto;
+            width: 23px;
+        }
+        #completedIcon {
+            height: auto;
+            width: 35px;
+        }
+        #listAdder:hover,#RemoveList:hover,#EditList:hover,#completedList:hover{
+           
+            background-color : whitesmoke;
+            color: black;
+        
+        }
+
+        #heading,#mainHeading{
+             
+            font-size: 30px;
+            font-family: cursive;
+            
+        }
+        #heading {
+            font-size: 25px;
+            font-family: cursive;
+            display: none;
+        }
+        #completedTaskHeading{
+            font-size: 25px;
+            font-family: cursive;
+
+        }
+        #li {
+            
+            list-style: none;
+        }
+        #hr,#hr_2{
+            width: 38%;
+            border: 1px solid #dbdbdb;
+        }
+        ol{
+            min-height: 350px;
+        }
+        .animatedLine{
+        position: relative;
+        z-index: 3;
+        top: -41px;
+        left: -30px;
+        width: 24%;
+        height: 1px;
+        border: 0px;
+        background: red;
+        animation: line 1.5s ease-in 1;      
+        }
+        
+        @keyframes line {
+            from{
+                width: 0%;
+            }
+        }
+
+        @media only screen and (min-width:280px) {
+            li{
+                width: 100%;
+                position: relative;
+                left: -25px;
+            }
+            ol{
+              min-height: 200px;
+            }
+            #listInput{
+                height: 44px;
+                padding-left: 18px;
+                padding-right: 18px;
+                height: 40px;
+                width: 70%;
+                font-size: 13px;
+            }
+            #listAdder{
+                
+                font-size: 12px;    
+                width: 25%;
+                margin-left: -10px;
+            }
+            #listItem{
+                height: 20px;
+                width:50%;
+
+            }
+            #EditList,#RemoveList,#completedList{
+                    height: 30px;
+                    width: 30px;
+                    margin: 0px;
+                    padding: 0px;
+            }
+            #completedList{
+                margin-left: -5px;
+                
+            }
+            #EditList{
+                margin-left: 7px;
+                
+            }
+            
+            #EditIcon,#deleteIcon,#completedIcon{
+
+                height: 15px;
+                width:  15px;  
+                padding: 5px;
+            }
+            #heading,#mainHeading,#completedTaskHeading {
+                font-size: 17px;
+            }
+            #hr,#hr_2{
+                width:45%;
+            }
+            .animatedLine {
+                left: -17px;
+                width: 45%;
+            }
+        
+    }
+        
+
+        </style>
+    </head>
+    
+<body>
+    
+<div>
+    </div>
+
+    </body>
+    
+<script >
+    
+    // container inside the body where every element will lie
+    
+    let container = document.getElementsByTagName("div")[0];
+    
+
+    // this is where tasks are gonna write down
+    
+    var listInput = document.createElement("input");
+    
+    listInput.setAttribute("id","listInput");
+    listInput.setAttribute("placeholder","Enter Your Task..");
+    // add item button 
+    
+    var listAdder = document.createElement("input");
+    
+    
+    listAdder.setAttribute("type","button");
+    listAdder.setAttribute("value","Add List");
+    listAdder.setAttribute("id","listAdder");
+    listAdder.setAttribute("onclick","AddItems(event)");
+    container.appendChild(listInput);
+    container.appendChild(listAdder);
+    
+    // created another container(which is ol) 
+ 
+    var ol = document.createElement("ol");
+    container.appendChild(ol);
+    
+    // the heading on the start of lists
+    
+var p = document.createElement("p");
+
+    
+    p.setAttribute("id","heading");
+    p.innerText="Tasks You've To Do!! ";
+    
+    // horizontal line
+    
+var hr = document.createElement("hr");
+    
+    hr.setAttribute("id","hr");
+    p.appendChild(hr);
+    ol.appendChild(p);
+    
+  
+                    // function to complete task
+    
+    var container2 = document.createElement("div");
+    container2.setAttribute("id","container2");
+        
+    var completedTaskContainer = document.createElement("ol");
+    
+    var completedTaskHeading = document.createElement("p");
+    var hr_2 = document.createElement("hr");
+        hr_2.setAttribute("id","hr_2");
+       
+        
+        completedTaskHeading.innerText = "Tasks You'd Complete !!";
+        completedTaskHeading.setAttribute("id","completedTaskHeading");
+        
+        container2.appendChild(completedTaskHeading);
+        completedTaskHeading.appendChild(hr_2);
+    
+    
+    container.appendChild(container2);
+    container2.appendChild(completedTaskContainer);
+    container2.style.display="none";    
+    
+ 
+    
+                                         //  function to add lists 
+ 
+function AddItems(event) {
+    
+    //condition for empty input 
+    
+    if(listInput.value == "") {
+        
+        alert("Make sure that you've added task  !!");
+        
+    }
+    else {
+        
+        // li , where lists are gonna take place
+        
+    var li = document.createElement("li");
+        li.setAttribute("id","li");
+        ol.appendChild(li);  
+        
+        // completed task button
+        
+    var completedList = document.createElement("button");
+        
+        completedList.onclick = completedTask;
+        completedList.setAttribute("id","completedList");
+        
+    var completedIcon=document.createElement("img");
+        
+        completedIcon.src="./plus-icon.png";
+        completedIcon.setAttribute("id","completedIcon");
+        
+        completedList.appendChild(completedIcon);
+        
+        
+        // list's value aside remove and edit button 
+        
+    var listItem = document.createElement("input");
+        listItem.setAttribute("id","listItem");
+        listItem.setAttribute("value",listInput.value);
+        listItem.setAttribute("disabled","disabled");
+        
+        //remove button
+        
+    var removeList = document.createElement("button");
+    
+        removeList.setAttribute("id","RemoveList")
+        removeList.onclick = RemoveList;
+        
+
+        
+    var deleteIcon=document.createElement("img");
+    
+        deleteIcon.src="./delete-icon.png";
+        deleteIcon.setAttribute("id","deleteIcon");
+        
+        removeList.appendChild(deleteIcon);
+               
+        // edit button
+        
+    var editList = document.createElement("button");
+        
+        editList.setAttribute("id","EditList");
+        editList.onclick = EditList;
+        
+        var editIcon = document.createElement("img");
+        
+        editIcon.src="./edit-icon.png";
+        editIcon.setAttribute("id","editIcon");
+
+        
+        editList.appendChild(editIcon);
+        li.appendChild(completedList);
+        li.appendChild(listItem);
+        li.appendChild(removeList);
+        li.appendChild(editList);
+    }
+
+// condition for heading and input value    
+    
+    if(ol.childElementCount > 1){
+        listInput.value = "";
+        p.style.display="block";
+    }
+
+    
+                                        // function to remove list
+    
+    function RemoveList() {
+            
+        var clickedElement = this.parentNode;
+        ol.removeChild(clickedElement);
+        
+    }
+    
+                                            // function to edit list
+    
+    function EditList(){
+        
+        var clickedElement = this.parentNode;
+        var targetElement = clickedElement.firstChild.nextSibling;
+        
+        targetElement.removeAttribute("disabled","disabled");
+        targetElement.select();
+    }
+    
+                                         // function for completed tasks
+    
+   function completedTask(event) {
+       
+        container2.style.display="block";
+    
+       completedList.style="top:8px";
+       editList.style="top:7px";
+       removeList.style="top:7px";
+
+        var clickedElement = this.parentNode;
+        
+        completedTaskContainer.appendChild(clickedElement);              
+        completedList.setAttribute("disabled","disabled");
+        editList.setAttribute("disabled","disabled");
+        removeList.setAttribute("disabled","disabled");
+       
+       var hr_line = document.createElement("hr");
+       
+       hr_line.className="animatedLine";
+       clickedElement.appendChild(hr_line);
+              
+
+   }
+    
+
+
+}
+
+    
+    
+        
+    
+    </script>
+    
+</html>
